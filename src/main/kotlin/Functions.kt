@@ -1,4 +1,4 @@
-fun printMessage(message: String): Unit {
+fun printMessage(message: String) {
     println(message)
 }
 
@@ -22,5 +22,4 @@ fun main() {
     myString add "Kotlin"
     myString add "World"
     println(myString.string)
-    
 }
