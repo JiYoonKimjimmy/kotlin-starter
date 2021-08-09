@@ -2,10 +2,8 @@ package rxkotlin
 
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
+import java.util.*
 import java.util.regex.Pattern
-
-class CalculatorExample {
-}
 
 class ReactiveCalculator(a:Int, b:Int) {
     private val subjectAdd: Subject<Pair<Int, Int>> = PublishSubject.create()
@@ -15,7 +13,7 @@ class ReactiveCalculator(a:Int, b:Int) {
 
     private val subjectCalc: Subject<ReactiveCalculator> = PublishSubject.create()
 
-    private var nums:Pair<Int,Int> = Pair(0,0)
+    private var nums = Pair(0,0)
 
     init{
         nums = Pair(a,b)
@@ -60,7 +58,7 @@ class ReactiveCalculator(a:Int, b:Int) {
 
     }
 
-    fun handleInput(inputLine:String?) {
+    fun handleInput(inputLine: String?) {
         if(!inputLine.equals("exit")) {
             val pattern: Pattern = Pattern.compile("([a|b])(?:\\s)?=(?:\\s)?(\\d*)");
 
@@ -70,9 +68,9 @@ class ReactiveCalculator(a:Int, b:Int) {
             val matcher: java.util.regex.Matcher = pattern.matcher(inputLine)
 
             if (matcher.matches() && matcher.group(1) != null && matcher.group(2) != null) {
-                if(matcher.group(1).toLowerCase() == "a"){
+                if(matcher.group(1).lowercase(Locale.getDefault()) == "a"){
                     a = matcher.group(2).toInt()
-                } else if(matcher.group(1).toLowerCase() == "b"){
+                } else if(matcher.group(1).lowercase(Locale.getDefault()) == "b"){
                     b = matcher.group(2).toInt()
                 }
             }
@@ -90,7 +88,7 @@ class ReactiveCalculator(a:Int, b:Int) {
 
 }
 
-fun main(args: Array<String>) {
+fun main() {
     println("Initial Out put with a = 15, b = 10")
     val calculator = ReactiveCalculator(15, 10)
 
@@ -99,5 +97,5 @@ fun main(args: Array<String>) {
     do {
         line = readLine()
         calculator.handleInput(line)
-    } while (line!= null && !line.toLowerCase().contains("exit"))
+    } while (line!= null && !line.lowercase(Locale.getDefault()).contains("exit"))
 }
