@@ -12,6 +12,8 @@ repositories {
 }
 
 dependencies {
+    implementation("io.reactivex.rxjava2:rxjava:2.2.19")
+    implementation("io.reactivex.rxjava2:rxkotlin:2.4.0")
     testImplementation(kotlin("test"))
     implementation(kotlin("script-runtime"))
 }
