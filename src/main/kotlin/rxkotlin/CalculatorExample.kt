@@ -58,9 +58,9 @@ class ReactiveCalculator(a:Int, b:Int) {
 
     }
 
-    fun handleInput(inputLine: String?) {
-        if(!inputLine.equals("exit")) {
-            val pattern: Pattern = Pattern.compile("([a|b])(?:\\s)?=(?:\\s)?(\\d*)");
+    fun handleInput(inputLine: String) {
+        if(inputLine != "exit") {
+            val pattern: Pattern = Pattern.compile("([a|b])\\s?=\\s?(\\d*)");
 
             var a: Int? = null
             var b: Int? = null
@@ -90,12 +90,6 @@ class ReactiveCalculator(a:Int, b:Int) {
 
 fun main() {
     println("Initial Out put with a = 15, b = 10")
-    val calculator = ReactiveCalculator(15, 10)
-
+    ReactiveCalculator(15, 10)
     println("Enter a = <number> or b = <number> in separate lines\nexit to exit the program")
-    var line:String?
-    do {
-        line = readLine()
-        calculator.handleInput(line)
-    } while (line!= null && !line.lowercase(Locale.getDefault()).contains("exit"))
 }
