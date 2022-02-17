@@ -28,3 +28,33 @@ fun takeCareOfCats(cats: Herd<Cat>) {
         feedAll(cats)
     }
 }
+
+fun printContents(list: List<Any>) {
+    println(list.joinToString())
+}
+
+fun addAnswer(list: MutableList<Any>) {
+    list.add(42)
+}
+
+fun subtype(i: Int) {
+    val n: Number = i
+}
+
+fun main() {
+    printContents(listOf("abc", "cba"))
+
+//    val strings = mutableListOf<Any>("abc", "cba")
+//    addAnswer(strings)
+//    println(strings)
+//    println(strings.maxByOrNull { it.length })
+
+    val anyComparator = Comparator<Any> {
+        e1, e2 -> e1.hashCode() - e2.hashCode()
+    }
+
+    val strings = listOf("abc", "cba")
+    println(strings)
+    strings.sortedWith(anyComparator)
+    println(strings)
+}
