@@ -8,7 +8,7 @@ import java.util.regex.Pattern
 class ReactiveCalculator(a:Int, b:Int) {
     private val subjectAdd: Subject<Pair<Int, Int>> = PublishSubject.create()
     private val subjectSub: Subject<Pair<Int, Int>> = PublishSubject.create()
-    private val subjectMult: Subject<Pair<Int, Int>> =PublishSubject.create()
+    private val subjectMul: Subject<Pair<Int, Int>> = PublishSubject.create()
     private val subjectDiv: Subject<Pair<Int, Int>> = PublishSubject.create()
 
     private val subjectCalc: Subject<ReactiveCalculator> = PublishSubject.create()
@@ -18,15 +18,15 @@ class ReactiveCalculator(a:Int, b:Int) {
     init{
         nums = Pair(a,b)
 
-        subjectAdd.map { it.first+it.second }.subscribe {println("Add = $it")}
-        subjectSub.map { it.first-it.second }.subscribe {println("Substract = $it")}
-        subjectMult.map { it.first*it.second }.subscribe {println("Multiply = $it")}
-        subjectDiv.map { it.first/(it.second*1.0) }.subscribe {println("Divide = $it")}
+        subjectAdd.map { it.first + it.second }.subscribe { println("Add = $it") }
+        subjectSub.map { it.first - it.second }.subscribe { println("Subtract = $it") }
+        subjectMul.map { it.first * it.second }.subscribe { println("Multiply = $it") }
+        subjectDiv.map { it.first / (it.second * 1.0) }.subscribe { println("Divide = $it") }
 
         subjectCalc.subscribe {
             with(it) {
                 calculateAddition()
-                calculateSubstraction()
+                calculateSubtraction()
                 calculateMultiplication()
                 calculateDivision()
             }
@@ -40,12 +40,12 @@ class ReactiveCalculator(a:Int, b:Int) {
         subjectAdd.onNext(nums)
     }
 
-    private fun calculateSubstraction() {
+    private fun calculateSubtraction() {
         subjectSub.onNext(nums)
     }
 
     private fun calculateMultiplication() {
-        subjectMult.onNext(nums)
+        subjectMul.onNext(nums)
     }
 
     private fun calculateDivision() {
@@ -77,7 +77,6 @@ class ReactiveCalculator(a:Int, b:Int) {
 
 
             when {
-                a != null && b != null -> modifyNumbers(a, b)
                 a != null -> modifyNumbers(a = a)
                 b != null -> modifyNumbers(b = b)
                 else -> println("Invalid Input")
