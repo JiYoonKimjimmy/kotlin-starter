@@ -1,19 +1,19 @@
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 
-class HelloWorldTest {
+class HelloTest {
 
     private var hello: String = ""
 
-    @Before
+    @BeforeEach
     fun before() {
         hello = "Hello"
     }
 
-    @After
+    @AfterEach
     fun after() {
         println("$hello World!")
     }
