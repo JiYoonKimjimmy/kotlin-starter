@@ -30,11 +30,5 @@ dependencies {
 
 ---
 
-## `Kotest` 사용 방법
-
-- TODO 계속 작성 예정
-
----
-
 #### 출처 
 - [`Kotest` 공식 홈페이지](https://kotest.io/)
