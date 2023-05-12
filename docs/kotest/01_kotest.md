@@ -75,9 +75,65 @@ class ShouldSpecExample : ShouldSpec({
 
 ### `DescribeSpec`
 
+- `DescribeSpec` 스타일은 `describe` or `it` 와 같은 키워드를 사용하여 `Ruby` 나 `JavaScript` 스타일과 유사
+- 테스트 코드는 하나 이상의 `describe` 블록을 중첩하여 작성
+- `xdescribe` or `xit` 를 사용하여 테스트 실행 여부 분리
+
+```kotlin
+class DescribeSpecExample: DescribeSpec({
+    describe("숫자 비교 테스트") {
+        it("0 보다 큰지 비교") {
+            1 shouldBeGreaterThan 0
+        }
+        xdescribe ("0 과 같은지 비교") {
+            0 shouldBeEqual 0
+        }
+        xit ("0 보다 작은지 비교") {
+            -1 shouldBeLessThan 0
+        }
+    }
+})
+```
+
 ---
 
 ### `BehaviorSpec`
+
+- `BDD` 스타일로 가장 많이 활용되는 스타일
+- `given`, `when`, `then` 키워드를 사용하여 테스트 코드 작성
+- `xgiven`, `xwhen`, `xthen` 키워드를 사용하여 테스트 코드 실행 여부 분리
+
+```kotlin
+class BehaviorSpecExample: BehaviorSpec({
+
+    given("문자열 길이 비교") {
+        val text = "hello"
+        val length = 5
+
+        `when`("문자열 길이 같다면") {
+            then("성공 처리") {
+                text.length shouldBe length
+            }
+        }
+    }
+    
+})
+```
+
+#### `BDD` <small>Behavior Driven Development</small>
+
+`BDD` 는 **행위 주도 개발** 방식으로, `TDD (Test Driven Development)` 에서 파생된 개념이지만,
+`TDD` 에서 더 나아가 테스트 케이스 자체를 요구 사항이 되도록 개발 설계하는 방식이다.
+
+##### `BDD` 의 기본 패턴
+
+- `Feature` : 테스트 대상의 기능/책임 명시
+- `Scenario` : 테스트 목적에 대한 상황 설명
+- `Given` : 시나리오 진행에 필요한 값 설정
+- `When` : 시나리오 진행에 필요한 조건 명시
+- `Then` : 시나리오 완료한 경우 보장해야 하는 값 명시
+
+> 참고 : [devkuma님 블로그 - BDD(Behavior Driven Development, 행위 주도 개발)](https://www.devkuma.com/docs/testing/bdd/)
 
 ---
 
