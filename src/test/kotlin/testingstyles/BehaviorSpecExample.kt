@@ -3,7 +3,7 @@ package testingstyles
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
 
-class BehaviorSpecExample: BehaviorSpec({
+class BehaviorSpecExample : BehaviorSpec({
 
     given("문자열 길이 비교") {
         val text = "hello"
