@@ -139,21 +139,132 @@ class BehaviorSpecExample: BehaviorSpec({
 
 ### `WordSpec`
 
+- `WordSpec` 스타일은 `should` 를 사용하고 `context` 문자열 뒤에 테스트 코드를 중첩
+- `When` 을 사용하여 테스트 조건을 명시 가능
+
+```kotlin
+class WordSpecExample : WordSpec({
+    "String.length" should {
+        "return the length of the String" {
+            "hello".length shouldBe 5
+        }
+    }
+
+    "Hello" When {
+        "asked for length" should {
+            "return 5" {
+                "Hello".length shouldBe 5
+            }
+        }
+        "appended to Bob" should {
+            "return Hello Bob" {
+                "Hello " + "Bob" shouldBe "Hello Bob"
+            }
+        }
+    }
+})
+```
+
 ---
 
 ### `FreeSpec`
+
+- `FreeSpec` 스타일은 `-` 키워드를 사용하여 `Outer` 외부 테스트를 정의하고 중첩
+- `-` 키워드가 없는 테스트 코드가 최종 테스트
+
+```kotlin
+class FreeSpecExample : FreeSpec({
+    "String.length" - {
+        "should return the length of String" {
+            "Hello".length shouldBe 5
+        }
+    }
+
+    "containers can be nested as deep as you want" - {
+        "and so we nest another container" - {
+            "yet another container" - {
+                "finally a real test" {
+                    1 + 1 shouldBe 2
+                }
+            }
+        }
+    }
+})
+```
 
 ---
 
 ### `FeatureSpec`
 
+- `FeatureSpec` 은 [`Cucumber`](https://cucumber.io/) 와 같은 `feature` 와 `scenario` 키워드 사용 가능
+- `xfeature`, `xscenario` 키워드를 사용하여 테스트 코드 실행 여부 분리
+
+```kotlin
+class FeatureSpecExample : FeatureSpec({
+    feature("문자열 비교") {
+        val check = 5
+        scenario("문자열 길이가 주어진 숫자와 같다.") {
+            "hello".length shouldBe check
+        }
+        scenario("문자열 길이가 주어진 숫자와 다르다.") {
+            "hello world".length shouldNotBe check
+        }
+    }
+})
+```
+
 ---
 
 ### `ExpectSpec`
 
+- `ExpectSpec` 은 `FunSpec`, `ShouldSpec` 과 비슷하지만, `expect` 키워드를 대신 사용
+- - `xcontext`, `xexpect` 키워드를 사용하여 테스트 코드 실행 여부 분리
+
+```kotlin
+class ExpectSpecExample : ExpectSpec({
+    context("문자열 길이 비교") {
+        val check = 5
+        expect("주어진 숫자와 문자열 길이가 같다.") {
+            "hello".length shouldBe check
+        }
+        xexpect("주어진 숫자와 문자열 길이가 다르다.") {
+            "hello world".length shouldNotBe check
+        }
+    }
+})
+```
+
 ---
 
 ### `AnnotationSpec`
+
+- `AnnotationSpec` 을 사용하면 `JUnit` 테스트 코드를 마이그레이션할 때 용이
+- `JUnit 4/5` 와 같은 사양을 지원하고, 정의된 테스트 코드 함수에 `@Test` 과 같은 Annotation 추가하면 완료
+
+> `JUnit` 의 다른 Annotation 과도 유사한 Annotation 를 지원
+> - `@BeforeAll > @BeforeClass`
+> - `@BeforeEach > @Before`
+> - `@AfterAll > @AfterClass`
+> - `@AfterEach > @After`
+
+```kotlin
+class AnnotationSpecExample : AnnotationSpec() {
+    @BeforeEach
+    fun beforeTest() {
+        println("Before each test")
+    }
+
+    @Test
+    fun test1() {
+        1 shouldBe 1
+    }
+
+    @Test
+    fun test2() {
+        3 shouldBe 3
+    }
+}
+```
 
 ---
 
